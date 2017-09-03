@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Barebones Phaser File</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>body {margin: 0;}</style>
+        <script src="../Build/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+    var game, Phaser;
+    window.onload = function() {
+
+        game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
+        create: create, update: update, render: render});
+        
+        var sprite;
+
+        function preload() {
+        
+        game.load.image('ball', '../Pictures/ball.png');
+        
+        }
+    
+
+
+        function create() {
+        
+            sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
+            game.physics.enable(sprite, Phaser.Physics.ARCADE);
+
+
+        }
+
+        
+        
+        
+        function update() {
+        
+
+            if (game.input.mousePointer.isDown)
+            {
+
+            game.physics.arcade.moveToPointer(sprite, 400);
+
+
+            if (Phaser.Rectangle.contains(sprite.body, game.input.x, game.input.y))
+            {
+            sprite.body.velocity.setTo(0, 0);
+            }
+    }
+    else
+    {
+        sprite.body.velocity.setTo(0, 0);
+    }
+
+        }
+        
+        
+        function render() {
+        
+
+
+
+        }
+    };
+    </script>
+    </body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Barebones Phaser File</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>body {margin: 0;}</style>
+        <script src="../Build/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+    var game, Phaser;
+    window.onload = function() {
+
+        game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
+        create: create, update: update, render: render});
+        
+        var poly;
+        var graphics;
+        var circle;
+        var graphics2; 
+
+        function preload() {}
+
+        function create() {
+
+            poly = new Phaser.Polygon([ new Phaser.Point(200, 100), new Phaser.Point(350, 100), new Phaser.Point(375, 200), new Phaser.Point(150, 200) ]);
+
+            graphics = game.add.graphics(0, 0);
+
+            graphics.beginFill(0x0000ff);
+            graphics.drawPolygon(poly.points);
+            graphics.endFill();
+
+            
+            circle = new Phaser.Circle(game.world.centerX, 100,64);
+            
+            graphics2 = game.add.graphics(0, 0);
+            
+            graphics2.beginFill(0x33cc33);
+            graphics2.drawCircle(300, 300, 100);
+            graphics2.endFill();
+
+        }
+
+        
+        
+        
+        function update() {
+        
+            graphics.clear();
+
+            if (poly.contains(game.input.x, game.input.y))
+            {
+            graphics.beginFill(0xff0000);
+            }
+            else
+            {
+            graphics.beginFill(0x0000ff);
+            }
+
+            graphics.drawPolygon(poly.points);
+            graphics.endFill();
+            
+            
+            
+            graphics2.clear();
+
+            if (circle.contains(game.input.x, game.input.y))
+            {
+            graphics2.beginFill(0xffff00);
+            }
+            else
+            {
+            graphics2.beginFill(0x33cc33);
+            }
+
+            graphics2.drawCircle(300, 300, 100);
+            graphics2.endFill();
+
+        }
+        
+        
+        function render() {
+        
+
+
+
+        }
+    };
+    </script>
+    </body>
+</html>
