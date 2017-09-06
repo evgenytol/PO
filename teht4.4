@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>Barebones Phaser File</title>
+        <title>Teht5.4</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <style>body {margin: 0;}</style>
         <script src="../Build/phaser.min.js"></script>
@@ -16,17 +16,19 @@
         game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
         create: create, update: update, render: render});
         
-        var sprite;
+ 
 
         function preload() {
         
-        game.load.image('ball', '../Pictures/ball.png');
+            game.load.image('ball', 'Pictures/ball.png');
         
         }
     
-
+        var sprite;
 
         function create() {
+        
+            game.stage.backgroundColor = '#ffb3b3';
         
             sprite = game.add.sprite(game.world.centerX, game.world.centerY, 'ball');
             game.physics.enable(sprite, Phaser.Physics.ARCADE);
@@ -40,21 +42,19 @@
         function update() {
         
 
-            if (game.input.mousePointer.isDown)
-            {
+        if (game.input.mousePointer.isDown) {
 
-            game.physics.arcade.moveToPointer(sprite, 400);
+        game.physics.arcade.moveToPointer(sprite, 400);
 
-
-            if (Phaser.Rectangle.contains(sprite.body, game.input.x, game.input.y))
-            {
+            if (Phaser.Rectangle.contains(sprite.body, game.input.x, game.input.y)) {
             sprite.body.velocity.setTo(0, 0);
             }
-    }
-    else
-    {
+        }
+        else {
+        
         sprite.body.velocity.setTo(0, 0);
-    }
+        }
+
 
         }
         
