@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Barebones Phaser File</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>body {margin: 0;}</style>
+        <script src="../Build/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+        var game, Phaser, sprite1, sprite2, sprite3;
+        window.onload = function() {
+
+        game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
+        create: create, update: update, render: render});
+
+        function preload () {
+
+            game.load.image('sprite', 'Pictures/ball.png');
+            game.scale.pageAlignHorizontally = true;
+
+        }
+
+        function create () {
+            
+            game.stage.backgroundColor = '#ffe1e1';
+
+            sprite1 = game.add.sprite(200, 150, 'sprite');
+            sprite1.anchor.setTo(0.5, 0.5);
+            sprite2 = game.add.sprite(200, 400, 'sprite');
+            sprite2.anchor.setTo(0.5, 0.5);
+            sprite3 = game.add.sprite(200, 650, 'sprite');
+            sprite3.anchor.setTo(0.5, 0.5);
+            
+            var tween1 = game.add.tween(sprite1);
+            tween1.to({ x: 800 }, 2500, 'Linear', true, 0, 0, true);
+            var tween2 = game.add.tween(sprite2);
+            tween2.to({ x: 800 }, 2500, 'Linear', true, 0, 1, true);
+            var tween3 = game.add.tween(sprite3);
+            tween3.to({ x: 800 }, 2500, 'Linear', true, 0, -1, true);
+        }
+        function update() {
+
+        }
+        function render() {
+
+        }
+    };
+    </script>
+    </body>
+</html>
