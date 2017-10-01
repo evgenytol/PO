@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Barebones Phaser File</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>body {margin: 0;}</style>
+        <script src="../Build/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+        var game, Phaser, ball, sprite, sprites, bullets, cursors;
+        window.onload = function() {
+
+        game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
+        create: create, update: update, render: render});
+
+        function preload () {
+
+            game.load.image('ball', 'Pictures/ball1.png');
+            game.load.image('bullet', 'Pictures/bullet.png');
+            game.load.image('ship', 'Pictures/ship.png');
+            game.scale.pageAlignHorizontally = true;
+
+        }
+        
+        var bulletTime = 0;
+        var bullet;
+
+        function create () {
+            
+            sprites = game.add.group();
+            sprites.enableBody = true;
+            sprites.physicsBodyType = Phaser.Physics.ARCADE;
+
+            for (var i = 0; i < 10; i++) {
+                
+                var s = sprites.create(game.rnd.integerInRange(100, 700), game.rnd.integerInRange(32, 200), 'ball');
+                s.animations.add('spin', [0, 1, 2, 3]);
+                s.play('spin', 20, true);
+                s.body.velocity.set(game.rnd.integerInRange(-200, 200), game.rnd.integerInRange(-200, 200));
+            }
+
+            sprites.setAll('body.collideWorldBounds', true);
+            sprites.setAll('body.bounce.x', 1);
+            sprites.setAll('body.bounce.y', 1);
+            
+            bullets = game.add.group();
+            bullets.enableBody = true;
+            bullets.physicsBodyType = Phaser.Physics.ARCADE;
+
+            for (var i = 0; i < 20; i++) {
+                var b = bullets.create(0, 0, 'bullet');
+                b.name = 'bullet' + i;
+                b.exists = false;
+                b.visible = false;
+                b.checkWorldBounds = true;
+                b.events.onOutOfBounds.add(resetBullet, this);
+            }
+
+        sprite = game.add.sprite(400, 550, 'ship');
+        game.physics.enable(sprite, Phaser.Physics.ARCADE);
+
+        cursors = game.input.keyboard.createCursorKeys();
+        game.input.keyboard.addKeyCapture([ Phaser.Keyboard.SPACEBAR ]);
+        }
+        
+        function update() {
+            
+            game.physics.arcade.overlap(bullets, sprites, collisionHandler, null, this);
+
+            sprite.body.velocity.x = 0;
+            sprite.body.velocity.y = 0;
+
+            if (cursors.left.isDown)
+            {
+            sprite.body.velocity.x = -300;
+            }
+            else if (cursors.right.isDown)
+            {
+            sprite.body.velocity.x = 300;
+            }
+            else if (cursors.up.isDown)
+            {
+            sprite.body.velocity.y = -300;
+            }
+            else if (cursors.down.isDown)
+            {
+            sprite.body.velocity.y = 300;
+            }
+
+
+            if (game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR))
+            {
+            fireBullet();
+            }
+
+        }
+        
+        function fireBullet () {
+
+            if (game.time.now > bulletTime)
+            {
+            bullet = bullets.getFirstExists(false);
+
+            if (bullet)
+            {
+            bullet.reset(sprite.x + 6, sprite.y - 8);
+            bullet.body.velocity.y = -300;
+            bulletTime = game.time.now + 150;
+            }
+        }
+
+    }
+
+        function resetBullet (bullet) {
+
+            bullet.kill();
+
+        }
+
+
+        function collisionHandler (bullet, targ) {
+
+            bullet.kill();
+            targ.kill();
+
+        }
+        
+        function render() {
+
+        }
+    };
+    </script>
+    </body>
+</html>

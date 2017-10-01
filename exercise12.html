@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>exercise12Toloknov</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>body {margin: 0;}</style>
+        <script src="../Build/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+        var game, Phaser, atari1, atari2;
+        window.onload = function() {
+
+        game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
+        create: create, update: update, render: render});
+
+        function preload () {
+
+            game.load.image('atari1', 'Pictures/atari.png');
+            game.load.image('atari2', 'Pictures/atari.png');
+            game.scale.pageAlignHorizontally = true;
+
+        }
+        
+        function create() {
+
+
+            atari1 = game.add.sprite(100, 100, 'atari1');
+            atari2 = game.add.sprite(250, 90, 'atari2');
+
+            game.input.onTap.add(swapSprites, this);
+        }
+            
+        function update() {
+                
+        }
+        function swapSprites() {
+
+            game.world.swap(atari1, atari2);
+                
+            atari1.alpha = 1;
+            atari2.alpha = 1;
+            game.add.tween(atari1).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 500, true);
+            game.add.tween(atari2).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 500, true);
+        }
+        
+        function render() {
+
+        }
+    };
+    </script>
+    </body>
+</html>

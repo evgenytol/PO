@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>exercise11Toloknov</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>body {margin: 0;}</style>
+        <script src="../Build/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+        
+        var game, Phaser, sprite, sprite2, sprite3;
+        window.onload = function() {
+
+        game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
+        create: create, update: update, render: render});
+
+            function preload() {
+
+                game.load.spritesheet('mummy', 'Pictures/mummy37x45.png', 37, 45, 18);
+                game.scale.pageAlignHorizontally = true;
+
+            }
+
+            function create() {
+                
+                sprite = game.add.sprite(300, 150, 'mummy');
+                sprite.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+                sprite.animations.play('walk', 10, true);
+                sprite.scale.set(2);
+                sprite.smoothed = false;
+                
+                sprite2 = game.add.sprite(300, 300, 'mummy');
+                sprite2.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+                sprite2.animations.play('walk', 20, true);
+                sprite2.scale.set(2);
+                sprite2.smoothed = false;
+                
+                sprite3 = game.add.sprite(300, 450, 'mummy');
+                sprite3.animations.add('walk', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+                sprite3.animations.play('walk', 30, true);
+                sprite3.scale.set(2);
+                sprite3.smoothed = false;
+            }
+            function update() {
+            }
+
+            function render() {
+            }
+        };
+    </script>
+</body>
+</html>
