@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>exercise15Toloknov</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>body {margin: 0;}</style>
+        <script src="../Build/phaser.min.js"></script>
+    </head>
+    <body>
+
+    <script type="text/javascript">
+        
+        var game, Phaser, fx;
+        window.onload = function() {
+
+        game = new Phaser.Game(1024, 768, Phaser.AUTO, '', { preload: preload,
+        create: create, update: update, render: render});
+
+            function preload() {
+
+                game.load.spritesheet('button', 'Pictures/button.png', 80, 20);
+                game.load.bitmapFont('nokia', 'Pictures/nokia.png', 'Pictures/nokia.xml');
+                game.load.audio('sfx', 'audio/mix.mp3');
+                game.scale.pageAlignHorizontally = true;
+
+            }
+
+
+            function create() {
+                
+
+            	fx = game.add.audio('sfx');
+                fx.allowMultiple = true;
+
+            
+            	fx.addMarker('alien death', 1, 1.0);
+            	fx.addMarker('boss hit', 3, 0.5);
+            	fx.addMarker('escape', 4, 3.2);
+            	fx.addMarker('meow', 8, 0.5);
+
+            
+
+            	makeButton('alien death', 600, 100);
+            	makeButton('boss hit', 600, 140);
+            	makeButton('escape', 600, 180);
+            	makeButton('meow', 600, 220);
+
+            
+            }
+            
+            function makeButton(name, x, y) {
+            
+                var button = game.add.button(x, y, 'button', click, this, 0, 1, 2);
+                button.name = name;
+                button.scale.set(2, 1.5);
+                button.smoothed = false;
+            
+                var text = game.add.bitmapText(x, y + 7, 'nokia', name, 16);
+                text.x += (button.width / 2) - (text.textWidth / 2);
+            
+            }
+            
+            function click(button) {
+            
+            	fx.play(button.name);
+            
+            }
+
+            
+            
+
+            function update() {
+            }
+
+            function render() {
+            }
+        };
+        
+    </script>
+</body>
+</html>
